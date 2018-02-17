@@ -1,0 +1,1 @@
+;Runs after installing the mod.
