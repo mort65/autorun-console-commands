@@ -1,1 +1,1 @@
-;Runs after installing the mod.
+;Runs only once after installing the mod.
