@@ -685,6 +685,14 @@ Function FirstRun()
 	EndIf
 	Utility.Wait(0.1)
 	If GetState() == sCurState
+		MCMScript.iKeyLayout = MCMScript.accKeyLayout.GetValue() As Int
+		If MCMScript.iKeyLayout < 0 || ( MCMScript.iKeyLayout > MCMScript.sKeyLayouts.Length - 1 )
+			MCMScript.iKeyLayout = 0
+			MCMScript.accKeyLayout.SetValue(0)
+		EndIf
+		If MCMScript.iKeyLayout > 0
+			MCMScript.SetKeyCodes()
+		EndIf
 		If bConsoleUtil
 			ConsoleUtil.ExecuteCommand("bat AC")
 		Else
