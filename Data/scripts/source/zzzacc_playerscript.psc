@@ -18,9 +18,6 @@ Event OnPlayerLoadGame()
 	CheckSKSE()
 	CheckConsoleUtil()
 	CheckModVersion()
-	If !accMCMscript.IsRunning()
-		accMCMscript.Start()
-	EndIf
 	If MCMScript.bOnKeyPress
 		RegisterForKey(MCMScript.RunCommandKeyA)
 		RegisterForKey(MCMScript.RunCommandKeyB)
@@ -766,7 +763,7 @@ Bool Function bGetRunSilently(Bool bSilent)
 EndFunction
 
 Function CheckModVersion()
-	fNewVersion = MCMScript.GetModVersion()
+	fNewVersion = MCMScript.GetNewVersion()
 	fCurVersion = fMin(fCurVersion, accVersion.GetValue())
 	If ( fCurVersion < fNewVersion )
 		Debug.Trace("ARCC: Updating to version " + fNewVersion)

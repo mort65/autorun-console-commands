@@ -1072,8 +1072,14 @@ Event OnConfigRegister()
 EndEvent
 
 Float Function GetModVersion()
-	Return 1.41
+	Return 1.40
 EndFunction
+
+Float Function GetNewVersion()
+	Return GetModVersion() + 0.01
+EndFunction
+
+
 
 Event OnUpdate()
 	bInit = False
