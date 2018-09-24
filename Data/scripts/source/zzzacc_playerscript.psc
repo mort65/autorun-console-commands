@@ -17,9 +17,6 @@ Bool bTMenu = False
 Event OnPlayerLoadGame()
 	CheckSKSE()
 	CheckConsoleUtil()
-	If (FirstRun.GetValue() == 1)
-		FirstRun()
-	EndIf
 	CheckModVersion()
 	If !accMCMscript.IsRunning()
 		accMCMscript.Start()
@@ -79,12 +76,6 @@ EndEvent
 Event OnInit()
 	CheckSKSE()
 	CheckConsoleUtil()
-	If ( FirstRun.GetValue() == 1 )
-		If bConsoleUtil
-			MCMScript.bRunSilently = True
-		EndIf
-		FirstRun()
-	EndIf
 EndEvent
 
 Event OnSleepStop(Bool abInterrupted)
@@ -782,9 +773,21 @@ Function CheckModVersion()
 		MCMScript.Update(fCurVersion, fNewVersion)
 		fCurVersion = fNewVersion
 		accVersion.SetValue(fNewVersion)
+		If ( FirstRun.GetValue() == 1 )
+			If bConsoleUtil
+				MCMScript.bRunSilently = True
+			EndIf
+			RegisterforSingleUpdate(1.0)
+		EndIf
 		Debug.Trace("ARCC: Update Completed.")
 	EndIf
 EndFunction
+
+Event OnUpdate()
+	If ( FirstRun.GetValue() == 1 )
+		FirstRun()
+	EndIf
+EndEvent
 
 Float Function fMin(Float a,Float b)
 	If a <= b

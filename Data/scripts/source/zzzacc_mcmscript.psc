@@ -1072,7 +1072,7 @@ Event OnConfigRegister()
 EndEvent
 
 Float Function GetModVersion()
-	Return 1.4
+	Return 1.41
 EndFunction
 
 Event OnUpdate()
