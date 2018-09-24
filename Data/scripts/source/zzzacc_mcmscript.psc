@@ -14,6 +14,11 @@ int oidKeyMapOptionB
 int oidKeyMapOptionC
 int oidKeyMapOptionD
 Int oidKeyMapOptionE
+Int oidKeyMapOptionF
+Int oidKeyMapOptionG
+Int oidKeyMapOptionH
+Int oidKeyMapOptionI
+Int oidKeyMapOptionJ
 Int oidBlackScreen
 Int oidToggleMenu
 Int oidOnStandingEnabled
@@ -23,13 +28,17 @@ Int oidSeparateConfig
 Int oidUninstall
 Int oidKeyLayout
 Int oidRunSilently
+Int oidConsoleDelaySlider
+Bool Property bInit = False Auto Hidden
 zzzacc_PlayerScript Property PlayerScript Auto
 Objectreference Property InvisibleObject Auto
 Quest Property PlayerQuest Auto
 Bool Property bOnLoadGame = False Auto Hidden
 GlobalVariable Property FirstRun Auto
+GlobalVariable Property accVersion Auto
 String[] Property sKeyLayouts Auto Hidden
 Int Property iKeyLayout = 0 Auto Hidden
+Float Property fConsoleDelaySlider = 1.0 Auto Hidden 
 Bool Property bOnCellInter = False Auto Hidden
 Bool Property bOnCellExter = False Auto Hidden
 Bool Property bOnSleepStart = False Auto Hidden
@@ -88,6 +97,7 @@ Bool Property bRunSilently12 = False Auto Hidden
 Bool Property bRunSilently13 = False Auto Hidden
 Bool Property bRunSilently14 = False Auto Hidden
 Bool Property bRunSilently15 = False Auto Hidden
+Int[] Property iDXCode Auto Hidden
 Spell Property CellChangeDetector Auto
 Spell Property SitDetector Auto
 Spell Property CombatStartDetector Auto
@@ -98,10 +108,15 @@ Int Property RunCommandKeyB Auto
 Int Property RunCommandKeyC Auto
 Int Property RunCommandKeyD Auto
 Int Property RunCommandKeyE Auto
+Int Property RunCommandKeyF Auto
+Int Property RunCommandKeyG Auto
+Int Property RunCommandKeyH Auto
+Int Property RunCommandKeyI Auto
+Int Property RunCommandKeyJ Auto
 Int flags
 
 Event OnPageReset(String page)
-	SetArrays()
+	;SetArrays()
 	SetCursorFillMode(LEFT_TO_RIGHT)
 	If Page == "$General"
 		SetCursorPosition(0)
@@ -158,26 +173,45 @@ Event OnPageReset(String page)
 		oidKeyMapOptionD = AddKeyMapOption("$mrt_ARCC_KeyMapOptionD",RunCommandKeyD,flags)
 		SetCursorPosition(11)
 		oidKeyMapOptionE = AddKeyMapOption("$mrt_ARCC_KeyMapOptionE",RunCommandKeyE,flags)
+		SetCursorPosition(13)
+		oidKeyMapOptionF = AddKeyMapOption("$mrt_ARCC_KeyMapOptionF",RunCommandKeyF,flags)
+		SetCursorPosition(15)
+		oidKeyMapOptionG = AddKeyMapOption("$mrt_ARCC_KeyMapOptionG",RunCommandKeyG,flags)
+		SetCursorPosition(17)
+		oidKeyMapOptionH = AddKeyMapOption("$mrt_ARCC_KeyMapOptionH",RunCommandKeyH,flags)
+		SetCursorPosition(19)
+		oidKeyMapOptionI = AddKeyMapOption("$mrt_ARCC_KeyMapOptionI",RunCommandKeyI,flags)
+		SetCursorPosition(21)
+		oidKeyMapOptionJ = AddKeyMapOption("$mrt_ARCC_KeyMapOptionJ",RunCommandKeyJ,flags)
 	ElseIf Page == "$Extra"
 		SetCursorPosition(0)
 		AddHeaderOption("$Extra")
 		SetCursorPosition(2)
+		If ( bUninstall || ( PlayerScript.bConsoleUtil && bRunSilently ))
+			flags = OPTION_FLAG_DISABLED
+		Else
+			flags = OPTION_FLAG_NONE
+		EndIf
+		oidConsoleDelaySlider = AddSliderOption("$mrt_ARCC_ConsoleDelaySlider_1" ,fConsoleDelaySlider,"$mrt_ARCC_ConsoleDelaySlider_2", flags)
+		SetCursorPosition(4)
 		If ( bUninstall )
 			flags = OPTION_FLAG_DISABLED
 		Else
 			flags = OPTION_FLAG_NONE
 		EndIf
+		oidKeyLayout = AddMenuOption("$mrt_ARCC_KeyLayout", sKeyLayouts[iKeyLayout], flags)
+		SetCursorPosition(6)
 		oidSeparateConfig = AddToggleOption("$mrt_ARCC_SeparateConfig", bSeparateConfig,flags)
-		SetCursorPosition(4)
+		SetCursorPosition(8)
 		If ( bUninstall || bSeparateConfig || ( PlayerScript.bConsoleUtil && bRunSilently ))
 			flags = OPTION_FLAG_DISABLED
 		Else
 			flags = OPTION_FLAG_NONE
 		EndIf
 		oidBlackScreen = AddToggleOption("$mrt_ARCC_BlackScreen", bBlackScreen,flags)
-		SetCursorPosition(6)
+		SetCursorPosition(10)
 		oidToggleMenu = AddToggleOption("$mrt_ARCC_ToggleMenu", bToggleMenu,flags)
-		SetCursorPosition(8)
+		SetCursorPosition(12)
 		If ( bUninstall || bSeparateConfig || !PlayerScript.bConsoleUtil || bBlackScreen || bToggleMenu )
 			flags = OPTION_FLAG_DISABLED
 		Else
@@ -197,9 +231,40 @@ Event OnPageReset(String page)
 	EndIf
 EndEvent
 
+Event OnOptionSliderOpen(Int option)
+	If (option == oidConsoleDelaySlider)
+		SetSliderDialogStartValue(fConsoleDelaySlider)
+		SetSliderDialogDefaultValue(1.0)
+		SetSliderDialogRange(1.0, 10.0)
+		SetSliderDialogInterval(1.0)
+	EndIf
+EndEvent
+
+Event OnOptionSliderAccept(int option, Float value)
+	If (option == oidConsoleDelaySlider)
+		fConsoleDelaySlider = value
+		SetSliderOptionValue(oidConsoleDelaySlider, fConsoleDelaySlider, "$mrt_ARCC_ConsoleDelaySlider_2")
+	EndIf
+EndEvent
+
+Event OnOptionMenuOpen(Int option)
+	If (option == oidKeyLayout)
+		SetMenuDialogoptions(sKeyLayouts)
+		SetMenuDialogStartIndex(iKeyLayout)
+		SetMenuDialogDefaultIndex(0)
+	EndIf
+EndEvent
+
+Event OnOptionMenuAccept(Int option, Int index)
+	If (option == oidKeyLayout)
+	    iKeyLayout = index
+		SetKeyCodes()
+		SetMenuOptionValue(oidKeyLayout, sKeyLayouts[iKeyLayout])
+	EndIf
+EndEvent
+
 Event OnOptionSelect(Int option)
-	SetArrays()
-	string page = CurrentPage
+	;SetArrays()
 	If (option == oidOnLoadGameEnabled)
 		bOnLoadGame = !bOnLoadGame
 		If bOnLoadGame
@@ -676,6 +741,7 @@ Event OnOptionSelect(Int option)
 		Else
 			flags = OPTION_FLAG_NONE
 		EndIf
+		SetOptionFlags(oidConsoleDelaySlider, flags, True)
 		SetOptionFlags(oidBlackScreen, flags, True)
 		SetOptionFlags(oidToggleMenu, flags)
 	ElseIf (option == oidOnkeyPress)
@@ -714,19 +780,16 @@ Event OnOptionSelect(Int option)
 			EndIf
 		EndIf
 		SetToggleOptionValue(oidOnkeyPress, bOnKeyPress)
-		If ( bUninstall || !bOnKeyPress )
+		ForcePageReset()
+	ElseIf (Option == oidSeparateConfig)
+		bSeparateConfig = !bSeparateConfig
+		SetToggleOptionValue(oidSeparateConfig, bSeparateConfig)
+		If ( !bSeparateConfig && ( PlayerScript.bConsoleUtil && bRunSilently ))
 			flags = OPTION_FLAG_DISABLED
 		Else
 			flags = OPTION_FLAG_NONE
 		EndIf
-		SetOptionFlags(oidKeyMapOptionA, flags, True)
-		SetOptionFlags(oidKeyMapOptionB, flags, True)
-		SetOptionFlags(oidKeyMapOptionC, flags, True)
-		SetOptionFlags(oidKeyMapOptionD, flags, True)
-		SetOptionFlags(oidKeyMapOptionE, flags)
-	ElseIf (Option == oidSeparateConfig)
-		bSeparateConfig = !bSeparateConfig
-		SetToggleOptionValue(oidSeparateConfig, bSeparateConfig)
+		SetOptionFlags(oidConsoleDelaySlider, flags, True)
 		If ( bSeparateConfig || ( PlayerScript.bConsoleUtil && bRunSilently ))
 			flags = OPTION_FLAG_DISABLED
 		Else
@@ -769,7 +832,6 @@ Event OnOptionSelect(Int option)
 EndEvent
 
 Event OnoptionKeyMapChange(Int option, Int keyCode, string conflictControl, string conflictName)
-	string page = CurrentPage
 	If option == oidKeyMapOptionA
 		Bool Continue = True
 		If (conflictControl != "")
@@ -851,6 +913,86 @@ Event OnoptionKeyMapChange(Int option, Int keyCode, string conflictControl, stri
 			SetKeymapOptionValue(option, RunCommandKeyE)
 			RegisterForKey(RunCommandKeyE)			
 		EndIf
+	ElseIf option == oidKeyMapOptionF
+		Bool Continue = True
+		If (conflictControl != "")
+			string msg
+			If (conflictName != "")
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n(" + conflictName + ")\n\nAre you sure you want to continue?"
+			Else
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n\nAre you sure you want to continue?"
+			EndIf
+			Continue = ShowMessage(msg, True, "$Yes", "$No")
+		EndIf
+		If (Continue)
+			RunCommandKeyF = keyCode
+			SetKeymapOptionValue(option, RunCommandKeyF)
+			RegisterForKey(RunCommandKeyF)			
+		EndIf
+	ElseIf option == oidKeyMapOptionG
+		Bool Continue = True
+		If (conflictControl != "")
+			string msg
+			If (conflictName != "")
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n(" + conflictName + ")\n\nAre you sure you want to continue?"
+			Else
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n\nAre you sure you want to continue?"
+			EndIf
+			Continue = ShowMessage(msg, True, "$Yes", "$No")
+		EndIf
+		If (Continue)
+			RunCommandKeyG = keyCode
+			SetKeymapOptionValue(option, RunCommandKeyG)
+			RegisterForKey(RunCommandKeyG)			
+		EndIf
+	ElseIf option == oidKeyMapOptionH
+		Bool Continue = True
+		If (conflictControl != "")
+			string msg
+			If (conflictName != "")
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n(" + conflictName + ")\n\nAre you sure you want to continue?"
+			Else
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n\nAre you sure you want to continue?"
+			EndIf
+			Continue = ShowMessage(msg, True, "$Yes", "$No")
+		EndIf
+		If (Continue)
+			RunCommandKeyH = keyCode
+			SetKeymapOptionValue(option, RunCommandKeyH)
+			RegisterForKey(RunCommandKeyH)			
+		EndIf
+	ElseIf option == oidKeyMapOptionI
+		Bool Continue = True
+		If (conflictControl != "")
+			string msg
+			If (conflictName != "")
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n(" + conflictName + ")\n\nAre you sure you want to continue?"
+			Else
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n\nAre you sure you want to continue?"
+			EndIf
+			Continue = ShowMessage(msg, True, "$Yes", "$No")
+		EndIf
+		If (Continue)
+			RunCommandKeyI = keyCode
+			SetKeymapOptionValue(option, RunCommandKeyI)
+			RegisterForKey(RunCommandKeyI)			
+		EndIf
+	ElseIf option == oidKeyMapOptionJ
+		Bool Continue = True
+		If (conflictControl != "")
+			string msg
+			If (conflictName != "")
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n(" + conflictName + ")\n\nAre you sure you want to continue?"
+			Else
+				msg = "This key is already mapped to:\n'" + conflictControl + "'\n\nAre you sure you want to continue?"
+			EndIf
+			Continue = ShowMessage(msg, True, "$Yes", "$No")
+		EndIf
+		If (Continue)
+			RunCommandKeyJ = keyCode
+			SetKeymapOptionValue(option, RunCommandKeyJ)
+			RegisterForKey(RunCommandKeyJ)			
+		EndIf
 	EndIf
 	If PlayerQuest.IsRunning()
 		PlayerScript.mapKey()
@@ -858,7 +1000,6 @@ Event OnoptionKeyMapChange(Int option, Int keyCode, string conflictControl, stri
 EndEvent
 
 Event OnOptionHighlight(Int option)
-	string page = CurrentPage
 	If (option == oidOnSitEnabled)
 		SetInfoText("$mrt_ARCC_DESC_OnSit")
 	ElseIf (option == oidOnSleepStartEnabled)
@@ -893,6 +1034,16 @@ Event OnOptionHighlight(Int option)
 		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionD")
 	ElseIf (option == oidKeyMapOptionE)
 		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionE")
+	ElseIf (option == oidKeyMapOptionF)
+		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionF")
+	ElseIf (option == oidKeyMapOptionG)
+		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionG")
+	ElseIf (option == oidKeyMapOptionH)
+		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionH")
+	ElseIf (option == oidKeyMapOptionI)
+		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionI")
+	ElseIf (option == oidKeyMapOptionJ)
+		SetInfoText("$mrt_ARCC_DESC_KeyMapOptionJ")
 	ElseIf (option == oidBlackScreen)
 		SetInfoText("$mrt_ARCC_DESC_BlackScreen")
 	ElseIf (option == oidToggleMenu)
@@ -901,23 +1052,37 @@ Event OnOptionHighlight(Int option)
 		SetInfoText("$mrt_ARCC_DESC_RunSilently")
 	ElseIf (option == oidSeparateConfig)
 		SetInfoText("$mrt_ARCC_DESC_SeparateConfig")
+	ElseIf (option == oidKeyLayout)
+		SetInfoText("$mrt_ARCC_DESC_KeyLayout")
+	ElseIf (option == oidConsoleDelaySlider)
+		SetInfoText("$mrt_ARCC_DESC_ConsoleDelaySlider") 
 	EndIf
 EndEvent
 
 Event OnConfigInit()
-	SetArrays()
+	If bInit
+		Return
+	EndIf
+	bInit = True
+	PlayerScript.CheckModVersion()
 EndEvent
 
-Int Function GetVersion()
-	Return 1
+Event OnConfigRegister()
+	RegisterForSingleUpdate(3.0)
+EndEvent
+
+Float Function GetModVersion()
+	Return 1.4
 EndFunction
 
-Event OnVersionUpdate(int a_version)
+Event OnUpdate()
+	bInit = False
 EndEvent
 
 Function SetArrays()
 	SetPages()
-	SetLangs()
+	SetLayouts()
+	SetKeyCodes()
 EndFunction
 
 Function SetPages()
@@ -928,8 +1093,55 @@ Function SetPages()
 	pages[3] = "$Debug"
 EndFunction
 
-Function SetLangs()
-	sKeyLayouts = new String[2]
-	sKeyLayouts[0] = "$Default"
-	sKeyLayouts[1] = "$German"
+Function SetLayouts()
+	sKeyLayouts = new String[3]
+	sKeyLayouts[0] = "$QWERTY"
+	sKeyLayouts[1] = "$QWERTZ"
+	sKeyLayouts[2] = "$AZERTY"
+EndFunction
+
+Function SetKeyCodes()
+	iDXCode = New Int[101]
+	Int i = 0
+	While i < 83
+		iDXCode[i] = (i + 1)
+		i += 1
+	EndWhile
+	iDXCode[83] = 87 ;F11
+	iDXCode[84] = 88 ;F12
+	iDXCode[85] = 156 ;NUM Enter
+	iDXCode[86] = 157 ;Right Control
+	iDXCode[87] = 181 ;NUM/
+	iDXCode[88] = 183 ;SysRq / PtrScr
+	iDXCode[89] = 184 ;Right Alt
+	iDXCode[90] = 197 ;Pause
+	iDXCode[91] = 199 ;Home
+	iDXCode[92] = 200 ;Up Arrow
+	iDXCode[93] = 201 ;PgUp
+	iDXCode[94] = 203 ;Left Arrow
+	iDXCode[95] = 205 ;Right Arrow
+	iDXCode[96] = 207 ;End
+	iDXCode[97] = 208 ;Down Arrow
+	iDXCode[98] = 209 ;PgDown 
+	iDXCode[99] = 210 ;Insert 
+	iDXCode[100] = 211 ;Delete
+	If iKeyLayout == 1 ;QWERTZ
+		iDXCode[20] = 44 ;Y = Z
+		iDXCode[43] = 21 ;Z = Y
+	ElseIf iKeyLayout == 2 ;AZERTY
+		iDXCode[15] = 30 ;Q = A
+		iDXCode[29] = 16 ;A = Q
+		iDXCode[16] = 44 ;W = Z
+		iDXCode[43] = 17 ;Z = W
+		iDXCode[38] = 50 ;Semicolon = M
+		iDXCode[49] = 39 ;M = Semicolon
+	EndIf
+EndFunction
+
+Function Update(Float fCurVersion, Float fNewVersion)
+	If (fNewVersion >= 1.4 && fCurVersion < 1.4)
+		Debug.Trace(self + ": Updating script to version " + 1.4)
+		SetArrays()
+	EndIf
+	ForcePageReset()
 EndFunction

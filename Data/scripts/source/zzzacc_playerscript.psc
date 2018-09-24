@@ -5,8 +5,11 @@ zzzacc_MCMScript Property MCMScript Auto
 ImageSpaceModifier Property BlackScreen  Auto
 Actor Property PlayerRef Auto
 GlobalVariable Property FirstRun Auto 
+GlobalVariable Property accVersion Auto
 Bool Property bInterior Auto Hidden
 Int Property iConsoleUtilVer Auto Hidden
+Float Property fCurVersion = 0.0 Auto Hidden
+Float Property fNewVersion = 0.0 Auto Hidden
 Bool Property bConsoleUtil Auto Hidden
 Bool bBScreen = False
 Bool bTMenu = False
@@ -17,12 +20,21 @@ Event OnPlayerLoadGame()
 	If (FirstRun.GetValue() == 1)
 		FirstRun()
 	EndIf
+	CheckModVersion()
+	If !accMCMscript.IsRunning()
+		accMCMscript.Start()
+	EndIf
 	If MCMScript.bOnKeyPress
 		RegisterForKey(MCMScript.RunCommandKeyA)
 		RegisterForKey(MCMScript.RunCommandKeyB)
 		RegisterForKey(MCMScript.RunCommandKeyC)
 		RegisterForKey(MCMScript.RunCommandKeyD)
 		RegisterForKey(MCMScript.RunCommandKeyE)
+		RegisterForKey(MCMScript.RunCommandKeyF)
+		RegisterForKey(MCMScript.RunCommandKeyG)
+		RegisterForKey(MCMScript.RunCommandKeyH)
+		RegisterForKey(MCMScript.RunCommandKeyI)
+		RegisterForKey(MCMScript.RunCommandKeyJ)
 	EndIf
 	If MCMScript.bOnLoadGame
 		String sCurState
@@ -66,15 +78,12 @@ EndEvent
 
 Event OnInit()
 	CheckSKSE()
-	If !accMCMscript.IsRunning()
-		accMCMscript.Start()
-		CheckConsoleUtil()
-		If ( FirstRun.GetValue() == 1 )
-			If bConsoleUtil
-				MCMScript.bRunSilently = True
-			EndIf
-			FirstRun()
+	CheckConsoleUtil()
+	If ( FirstRun.GetValue() == 1 )
+		If bConsoleUtil
+			MCMScript.bRunSilently = True
 		EndIf
+		FirstRun()
 	EndIf
 EndEvent
 
@@ -250,6 +259,11 @@ Function mapKey()
 		RegisterForKey(MCMScript.RunCommandKeyC)
 		RegisterForKey(MCMScript.RunCommandKeyD)
 		RegisterForKey(MCMScript.RunCommandKeyE)
+		RegisterForKey(MCMScript.RunCommandKeyF)
+		RegisterForKey(MCMScript.RunCommandKeyG)
+		RegisterForKey(MCMScript.RunCommandKeyH)
+		RegisterForKey(MCMScript.RunCommandKeyI)
+		RegisterForKey(MCMScript.RunCommandKeyJ)
 	EndIf
 EndFunction
 
@@ -441,6 +455,191 @@ Event OnKeyDown(int keyCode)
 						EndIf
 					EndIf
 				EndIf
+			ElseIf keyCode == MCMScript.RunCommandKeyF
+				String sCurState
+				If GetState() == "KeyF1"
+					GoToState("KeyF2")
+					sCurState = "KeyF2"
+				Else
+					GoToState("KeyF1")
+					sCurState = "KeyF1"
+				EndIf
+				Utility.Wait(0.1)
+				If GetState() == sCurState
+					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
+						ConsoleUtil.ExecuteCommand("bat ACQ")
+					Else
+						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
+						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
+						If ( bBScreen || bTMenu )
+							If bBScreen
+								BlackScreen.Apply()
+							EndIf
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							Utility.Wait(0.1)
+						EndIf
+						RunBat(16) ;Q
+						If ( bBScreen || bTMenu )
+							Utility.Wait(0.1)
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							If bBScreen
+								BlackScreen.Remove()
+							EndIf
+						EndIf
+					EndIf
+				EndIf
+			ElseIf keyCode == MCMScript.RunCommandKeyG
+				String sCurState
+				If GetState() == "KeyG1"
+					GoToState("KeyG2")
+					sCurState = "KeyG2"
+				Else
+					GoToState("KeyG1")
+					sCurState = "KeyG1"
+				EndIf
+				Utility.Wait(0.1)
+				If GetState() == sCurState
+					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
+						ConsoleUtil.ExecuteCommand("bat ACR")
+					Else
+						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
+						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
+						If ( bBScreen || bTMenu )
+							If bBScreen
+								BlackScreen.Apply()
+							EndIf
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							Utility.Wait(0.1)
+						EndIf
+						RunBat(19) ;R
+						If ( bBScreen || bTMenu )
+							Utility.Wait(0.1)
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							If bBScreen
+								BlackScreen.Remove()
+							EndIf
+						EndIf
+					EndIf
+				EndIf
+			ElseIf keyCode == MCMScript.RunCommandKeyH
+				String sCurState
+				If GetState() == "KeyH1"
+					GoToState("KeyH2")
+					sCurState = "KeyH2"
+				Else
+					GoToState("KeyH1")
+					sCurState = "KeyH1"
+				EndIf
+				Utility.Wait(0.1)
+				If GetState() == sCurState
+					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
+						ConsoleUtil.ExecuteCommand("bat ACS")
+					Else
+						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
+						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
+						If ( bBScreen || bTMenu )
+							If bBScreen
+								BlackScreen.Apply()
+							EndIf
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							Utility.Wait(0.1)
+						EndIf
+						RunBat(31) ;S
+						If ( bBScreen || bTMenu )
+							Utility.Wait(0.1)
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							If bBScreen
+								BlackScreen.Remove()
+							EndIf
+						EndIf
+					EndIf
+				EndIf				
+			ElseIf keyCode == MCMScript.RunCommandKeyI
+				String sCurState
+				If GetState() == "KeyI1"
+					GoToState("KeyI2")
+					sCurState = "KeyI2"
+				Else
+					GoToState("KeyI1")
+					sCurState = "KeyI1"
+				EndIf
+				Utility.Wait(0.1)
+				If GetState() == sCurState
+					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
+						ConsoleUtil.ExecuteCommand("bat ACT")
+					Else
+						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
+						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
+						If ( bBScreen || bTMenu )
+							If bBScreen
+								BlackScreen.Apply()
+							EndIf
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							Utility.Wait(0.1)
+						EndIf
+						RunBat(20) ;T
+						If ( bBScreen || bTMenu )
+							Utility.Wait(0.1)
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							If bBScreen
+								BlackScreen.Remove()
+							EndIf
+						EndIf
+					EndIf
+				EndIf
+			ElseIf keyCode == MCMScript.RunCommandKeyJ
+				String sCurState
+				If GetState() == "KeyJ1"
+					GoToState("KeyJ2")
+					sCurState = "KeyJ2"
+				Else
+					GoToState("KeyJ1")
+					sCurState = "KeyJ1"
+				EndIf
+				Utility.Wait(0.1)
+				If GetState() == sCurState
+					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
+						ConsoleUtil.ExecuteCommand("bat ACU")
+					Else
+						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
+						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
+						If ( bBScreen || bTMenu )
+							If bBScreen
+								BlackScreen.Apply()
+							EndIf
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							Utility.Wait(0.1)
+						EndIf
+						RunBat(22) ;U
+						If ( bBScreen || bTMenu )
+							Utility.Wait(0.1)
+							If bTMenu
+								Debug.ToggleMenus()
+							EndIf
+							If bBScreen
+								BlackScreen.Remove()
+							EndIf
+						EndIf
+					EndIf
+				EndIf				
 			EndIf
 		EndIf
 	EndIf
@@ -508,37 +707,37 @@ Function FirstRun()
 EndFunction
 
 Function RunBat(Int iChar1 = 0,Int iChar2 = 0,Int iChar3 = 0)
-	Input.TapKey(41) ;~
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(14) ;backspace
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(48) ;B
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(30) ;A
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(20) ;T
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(57) ;Space
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(30) ;A
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(46) ;C
+	Input.TapKey(MCMScript.iDXCode[40]) ;~
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 10)
+	Input.TapKey(MCMScript.iDXCode[13]) ;backspace
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[47]) ;B
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[29]) ;A
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[19]) ;T
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[56]) ;Space
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[29]) ;A
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[45]) ;C
 	If iChar1 > 0
-		Utility.WaitMenuMode(0.1)
-		Input.TapKey(iChar1) ;
+		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+		Input.TapKey(MCMScript.iDXCode[iChar1- 1]) ;
 	EndIf
 	If iChar2 > 0
-		Utility.WaitMenuMode(0.1)
-		Input.TapKey(iChar2) ;
+		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+		Input.TapKey(MCMScript.iDXCode[iChar2 - 1]) ;
 	EndIf
 	If iChar3 > 0
-		Utility.WaitMenuMode(0.1)
-		Input.TapKey(iChar3) ;
+		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+		Input.TapKey(MCMScript.iDXCode[iChar3 - 1]) ;
 	EndIf
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(28) ;Enter
-	Utility.WaitMenuMode(0.1)
-	Input.TapKey(41) ;~
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[27]) ;Enter
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Input.TapKey(MCMScript.iDXCode[40]) ;~
 EndFunction
 
 Function CheckSKSE()
@@ -573,4 +772,23 @@ EndFunction
 
 Bool Function bGetRunSilently(Bool bSilent)
 	Return (( MCMScript.bSeparateConfig && bSilent ) || ( !MCMScript.bSeparateConfig && MCMScript.bRunSilently ))
+EndFunction
+
+Function CheckModVersion()
+	fNewVersion = MCMScript.GetModVersion()
+	fCurVersion = fMin(fCurVersion, accVersion.GetValue())
+	If ( fCurVersion < fNewVersion )
+		Debug.Trace("ARCC: Updating to version " + fNewVersion)
+		MCMScript.Update(fCurVersion, fNewVersion)
+		fCurVersion = fNewVersion
+		accVersion.SetValue(fNewVersion)
+		Debug.Trace("ARCC: Update Completed.")
+	EndIf
+EndFunction
+
+Float Function fMin(Float a,Float b)
+	If a <= b
+		Return a
+	EndIf
+	Return b
 EndFunction

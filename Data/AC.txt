@@ -1,1 +1,2 @@
-;Runs only once after installing the mod.
+;Runs after installing the mod.
+;To disable it, open 'mrt_ARCC.esp' in CK or TESEdit and set 'zzzacc_FirstRun [GLOB:0068EE]' to 0.
