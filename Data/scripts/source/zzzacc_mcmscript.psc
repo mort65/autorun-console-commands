@@ -36,6 +36,7 @@ Quest Property PlayerQuest Auto
 Bool Property bOnLoadGame = False Auto Hidden
 GlobalVariable Property FirstRun Auto
 GlobalVariable Property accVersion Auto
+GlobalVariable Property accKeyLayout Auto
 String[] Property sKeyLayouts Auto Hidden
 Int Property iKeyLayout = 0 Auto Hidden
 Float Property fConsoleDelaySlider = 1.0 Auto Hidden 
@@ -116,7 +117,6 @@ Int Property RunCommandKeyJ Auto
 Int flags
 
 Event OnPageReset(String page)
-	;SetArrays()
 	SetCursorFillMode(LEFT_TO_RIGHT)
 	If Page == "$General"
 		SetCursorPosition(0)
@@ -258,13 +258,13 @@ EndEvent
 Event OnOptionMenuAccept(Int option, Int index)
 	If (option == oidKeyLayout)
 	    iKeyLayout = index
+		accKeyLayout.SetValue(iKeyLayout)
 		SetKeyCodes()
 		SetMenuOptionValue(oidKeyLayout, sKeyLayouts[iKeyLayout])
 	EndIf
 EndEvent
 
 Event OnOptionSelect(Int option)
-	;SetArrays()
 	If (option == oidOnLoadGameEnabled)
 		bOnLoadGame = !bOnLoadGame
 		If bOnLoadGame
@@ -1076,10 +1076,8 @@ Float Function GetModVersion()
 EndFunction
 
 Float Function GetNewVersion()
-	Return GetModVersion() + 0.01
+	Return GetModVersion() + 0.02
 EndFunction
-
-
 
 Event OnUpdate()
 	bInit = False
@@ -1145,8 +1143,8 @@ Function SetKeyCodes()
 EndFunction
 
 Function Update(Float fCurVersion, Float fNewVersion)
-	If (fNewVersion >= 1.4 && fCurVersion < 1.4)
-		Debug.Trace(self + ": Updating script to version " + 1.4)
+	If (fNewVersion >= 1.40 && fCurVersion < 1.40)
+		Debug.Trace(self + ": Updating script to version " + 1.40)
 		SetArrays()
 	EndIf
 	ForcePageReset()

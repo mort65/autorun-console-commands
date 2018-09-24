@@ -1,2 +1,3 @@
 ;Runs after installing the mod.
-;To disable it, open 'mrt_ARCC.esp' in CK or TESEdit and set 'zzzacc_FirstRun [GLOB:0068EE]' to 0.
+;If your keyboard layout is AZERTY or similar and it doesn't work, open 'mrt_ARCC.esp' in CK or TESEdit and set 'zzzacc_KeyLayout [GLOB:00A991]' to 2.
+;If you want to disable it, open 'mrt_ARCC.esp' in CK or TESEdit and set 'zzzacc_FirstRun [GLOB:0068EE]' to 0.
