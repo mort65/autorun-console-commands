@@ -235,7 +235,7 @@ Event OnOptionSliderOpen(Int option)
 	If (option == oidConsoleDelaySlider)
 		SetSliderDialogStartValue(fConsoleDelaySlider)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(1.0, 10.0)
+		SetSliderDialogRange(1.0, 20.0)
 		SetSliderDialogInterval(1.0)
 	EndIf
 EndEvent
@@ -1076,7 +1076,7 @@ Float Function GetModVersion()
 EndFunction
 
 Float Function GetNewVersion()
-	Return GetModVersion() + 0.02
+	Return GetModVersion() + 0.03
 EndFunction
 
 Event OnUpdate()
