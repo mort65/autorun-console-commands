@@ -704,35 +704,35 @@ EndFunction
 
 Function RunBat(Int iChar1 = 0,Int iChar2 = 0,Int iChar3 = 0)
 	Input.TapKey(MCMScript.iDXCode[40]) ;~
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 10)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
 	Input.TapKey(MCMScript.iDXCode[13]) ;backspace
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[47]) ;B
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[29]) ;A
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[19]) ;T
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[56]) ;Space
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[29]) ;A
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[45]) ;C
 	If iChar1 > 0
-		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 		Input.TapKey(MCMScript.iDXCode[iChar1- 1]) ;
 	EndIf
 	If iChar2 > 0
-		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 		Input.TapKey(MCMScript.iDXCode[iChar2 - 1]) ;
 	EndIf
 	If iChar3 > 0
-		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+		Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 		Input.TapKey(MCMScript.iDXCode[iChar3 - 1]) ;
 	EndIf
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[27]) ;Enter
-	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 20)
+	Utility.WaitMenuMode(MCMScript.fConsoleDelaySlider / 40)
 	Input.TapKey(MCMScript.iDXCode[40]) ;~
 EndFunction
 
