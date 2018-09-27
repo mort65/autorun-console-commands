@@ -45,32 +45,30 @@ Event OnPlayerLoadGame()
 		If GetState() == sCurState
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently0)
 				ConsoleUtil.ExecuteCommand("bat ACG")
-			Else
-				If !bIsBusy
-					bIsBusy = True
-					bBScreen = bGetBScreen( MCMScript.bBlackScreen0 ) 
-					bTMenu = bGetTMenu( MCMScript.bToggleMenu0 )
-					If ( bBScreen || bTMenu )
-						If bBScreen
-							BlackScreen.Apply()
-						EndIf
-						If bTMenu
-							Debug.ToggleMenus()
-						EndIf
-						Utility.Wait(0.1)
+			ElseIf !bIsBusy
+				bIsBusy = True
+				bBScreen = bGetBScreen( MCMScript.bBlackScreen0 ) 
+				bTMenu = bGetTMenu( MCMScript.bToggleMenu0 )
+				If ( bBScreen || bTMenu )
+					If bBScreen
+						BlackScreen.Apply()
 					EndIf
-					RunBat(34) ;G
-					If ( bBScreen || bTMenu )
-						Utility.Wait(0.1)
-						If bTMenu
-							Debug.ToggleMenus()
-						EndIf
-						If bBScreen
-							BlackScreen.Remove()
-						EndIf
+					If bTMenu
+						Debug.ToggleMenus()
 					EndIf
-					bIsBusy = False
+					Utility.Wait(0.1)
 				EndIf
+				RunBat(34) ;G
+				If ( bBScreen || bTMenu )
+					Utility.Wait(0.1)
+					If bTMenu
+						Debug.ToggleMenus()
+					EndIf
+					If bBScreen
+						BlackScreen.Remove()
+					EndIf
+				EndIf
+				bIsBusy = False
 			EndIf
 		EndIf
 	EndIf

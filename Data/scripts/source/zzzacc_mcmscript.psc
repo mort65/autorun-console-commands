@@ -736,7 +736,6 @@ Event OnOptionSelect(Int option)
 		SetOptionFlags(oidRunSilently, flags)
 	ElseIf (option == oidRunSilently)
 		bRunSilently =!bRunSilently
-		PlayerScript.bIsBusy = False
 		SetToggleOptionValue(oidRunSilently, bRunSilently)
 		If ( bRunSilently )
 			flags = OPTION_FLAG_DISABLED
