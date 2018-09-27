@@ -117,6 +117,7 @@ Int Property RunCommandKeyJ Auto
 Int flags
 
 Event OnPageReset(String page)
+	PlayerScript.bIsBusy = False
 	SetCursorFillMode(LEFT_TO_RIGHT)
 	If Page == "$General"
 		SetCursorPosition(0)
@@ -735,6 +736,7 @@ Event OnOptionSelect(Int option)
 		SetOptionFlags(oidRunSilently, flags)
 	ElseIf (option == oidRunSilently)
 		bRunSilently =!bRunSilently
+		PlayerScript.bIsBusy = False
 		SetToggleOptionValue(oidRunSilently, bRunSilently)
 		If ( bRunSilently )
 			flags = OPTION_FLAG_DISABLED
