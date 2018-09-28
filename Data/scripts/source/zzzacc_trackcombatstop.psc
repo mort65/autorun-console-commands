@@ -19,11 +19,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 				sCurState = "CombatStop1"
 			EndIf
 			Utility.Wait(0.1)
-			If GetState() == sCurState
+			If GetState() == sCurState && !PlayerScript.bIsBusy
+				PlayerScript.bIsBusy = True
 				If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently13)
 					ConsoleUtil.ExecuteCommand("bat ACD")
-				ElseIf !PlayerScript.bIsBusy
-					PlayerScript.bIsBusy = True
+				Else
 					bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen13 ) 
 					bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu13 )
 					If ( bTMenu || bBScreen )
@@ -45,8 +45,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 							BlackScreen.Remove()
 						EndIf
 					EndIf
-					PlayerScript.bIsBusy = False
 				EndIf
+				PlayerScript.bIsBusy = False
 			EndIf
 		EndIf
 	EndIf

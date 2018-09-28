@@ -18,11 +18,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			sCurState = "Sit1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !PlayerScript.bIsBusy
+			PlayerScript.bIsBusy = True
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently5)
 				ConsoleUtil.ExecuteCommand("bat ACL")
-			ElseIf !PlayerScript.bIsBusy
-				PlayerScript.bIsBusy = True
+			Else
 				bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen5 ) 
 				bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu5 )
 				If ( bBScreen || bTMenu )
@@ -44,8 +44,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				PlayerScript.bIsBusy = False
 			EndIf
+			PlayerScript.bIsBusy = False
 		EndIf
 	EndIf
 EndEvent
