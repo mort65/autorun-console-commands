@@ -42,11 +42,11 @@ Event OnPlayerLoadGame()
 			sCurState = "Load1"
         EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !bIsBusy
+			bIsBusy = True
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently0)
 				ConsoleUtil.ExecuteCommand("bat ACG")
-			ElseIf !bIsBusy
-				bIsBusy = True
+			Else
 				bBScreen = bGetBScreen( MCMScript.bBlackScreen0 ) 
 				bTMenu = bGetTMenu( MCMScript.bToggleMenu0 )
 				If ( bBScreen || bTMenu )
@@ -68,8 +68,8 @@ Event OnPlayerLoadGame()
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				bIsBusy = False
 			EndIf
+			bIsBusy = False
 		EndIf
 	EndIf
 EndEvent
@@ -90,11 +90,11 @@ Event OnSleepStop(Bool abInterrupted)
 			sCurState = "Sleep1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !bIsBusy
+			bIsBusy = True
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently1)
 				ConsoleUtil.ExecuteCommand("bat ACH")
-			ElseIf !bIsBusy
-				bIsBusy = True
+			Else
 				bBScreen = bGetBScreen( MCMScript.bBlackScreen1 ) 
 				bTMenu = bGetTMenu( MCMScript.bToggleMenu1 )
 				If ( bBScreen || bTMenu )
@@ -116,8 +116,8 @@ Event OnSleepStop(Bool abInterrupted)
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				bIsBusy = False
 			EndIf
+			bIsBusy = False
 		EndIf
 	EndIf
 EndEvent
@@ -133,11 +133,11 @@ Event OnEnterBleedout()
 			sCurState = "Bleedout1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !bIsBusy
+			bIsBusy = True
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently4)
 				ConsoleUtil.ExecuteCommand("bat ACK")
-			ElseIf !bIsBusy
-				bIsBusy = True
+			Else
 				bBScreen = bGetBScreen( MCMScript.bBlackScreen4 ) 
 				bTMenu = bGetTMenu( MCMScript.bToggleMenu4 )
 				If ( bBScreen || bTMenu )
@@ -159,8 +159,8 @@ Event OnEnterBleedout()
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				bIsBusy = False
 			EndIf
+			bIsBusy = False
 		EndIf
 	EndIf
 EndEvent
@@ -176,11 +176,11 @@ Event OnDying( Actor akKiller )
 			sCurState = "Dying1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !bIsBusy
+			bIsBusy = True
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently15)
 				ConsoleUtil.ExecuteCommand("bat ACF")
-			ElseIf !bIsBusy
-				bIsBusy = True
+			Else
 				bBScreen = bGetBScreen( MCMScript.bBlackScreen15 ) 
 				bTMenu = bGetTMenu( MCMScript.bToggleMenu15 )
 				If ( bBScreen || bTMenu )
@@ -202,8 +202,8 @@ Event OnDying( Actor akKiller )
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				bIsBusy = False
 			EndIf
+			bIsBusy = False
 		EndIf
 	EndIf
 EndEvent
@@ -219,11 +219,11 @@ Event OnGetUp(ObjectReference akFurniture)
 			sCurState = "Getup1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !bIsBusy
+			bIsBusy = True
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently11)
 				ConsoleUtil.ExecuteCommand("bat ACB")
-			ElseIf !bIsBusy
-				bIsBusy = True
+			Else
 				bBScreen = bGetBScreen( MCMScript.bBlackScreen11 ) 
 				bTMenu = bGetTMenu( MCMScript.bToggleMenu11 )
 				If ( bBScreen || bTMenu )
@@ -245,8 +245,8 @@ Event OnGetUp(ObjectReference akFurniture)
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				bIsBusy = False
 			EndIf
+			bIsBusy = False
 		EndIf
 	EndIf
 EndEvent
@@ -280,11 +280,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyA1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACM")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -306,8 +306,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyB
 				String sCurState
@@ -319,11 +319,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyB1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACN")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -345,8 +345,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyC
 				String sCurState
@@ -358,11 +358,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyC1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACO")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -384,8 +384,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyD
 				String sCurState
@@ -397,11 +397,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyD1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACP")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -423,8 +423,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyE
 				String sCurState
@@ -436,11 +436,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyE1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACA")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -462,8 +462,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyF
 				String sCurState
@@ -475,11 +475,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyF1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACQ")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -501,8 +501,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyG
 				String sCurState
@@ -514,11 +514,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyG1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACR")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -540,8 +540,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyH
 				String sCurState
@@ -553,11 +553,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyH1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACS")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -579,8 +579,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf				
 			ElseIf keyCode == MCMScript.RunCommandKeyI
 				String sCurState
@@ -592,11 +592,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyI1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACT")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -618,8 +618,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyJ
 				String sCurState
@@ -631,11 +631,11 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyJ1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState
+				If GetState() == sCurState && !bIsBusy
+					bIsBusy = True
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACU")
-					ElseIf !bIsBusy
-						bIsBusy = True
+					Else
 						bBScreen = bGetBScreen( MCMScript.bBlackScreen6 ) 
 						bTMenu = bGetTMenu( MCMScript.bToggleMenu6 )
 						If ( bBScreen || bTMenu )
@@ -657,8 +657,8 @@ Event OnKeyDown(int keyCode)
 								BlackScreen.Remove()
 							EndIf
 						EndIf
-						bIsBusy = False
 					EndIf
+					bIsBusy = False
 				EndIf				
 			EndIf
 		EndIf
@@ -676,11 +676,11 @@ Event OnRaceSwitchComplete()
 			sCurState = "RaceChange1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !bIsBusy
+			bIsBusy = True
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently14)
 				ConsoleUtil.ExecuteCommand("bat ACE")
-			ElseIf !bIsBusy
-				bIsBusy = True
+			Else
 				bBScreen = bGetBScreen( MCMScript.bBlackScreen14 ) 
 				bTMenu = bGetTMenu( MCMScript.bToggleMenu14 )
 				If ( bBScreen || bTMenu )
@@ -702,8 +702,8 @@ Event OnRaceSwitchComplete()
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				bIsBusy = False
 			EndIf
+			bIsBusy = False
 		EndIf
 	EndIf
 EndEvent

@@ -19,11 +19,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			sCurState = "Inter1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !PlayerScript.bIsBusy
+			PlayerScript.bIsBusy = True
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently3)
 				ConsoleUtil.ExecuteCommand("bat ACJ")
-			ElseIf !PlayerScript.bIsBusy
-				PlayerScript.bIsBusy = True
+			Else
 				bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen3 ) 
 				bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu3 )
 				If ( bTMenu || bBScreen )
@@ -45,8 +45,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				PlayerScript.bIsBusy = False
 			EndIf
+			PlayerScript.bIsBusy = False
 		EndIf
 	ElseIf ( MCMScript.bOnCellExter && !PlayerRef.IsInInterior() && InvisibleObject.IsInInterior() )
 		String sCurState
@@ -58,11 +58,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			sCurState = "Exter1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState
+		If GetState() == sCurState && !PlayerScript.bIsBusy
+			PlayerScript.bIsBusy = True
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently2)
 				ConsoleUtil.ExecuteCommand("bat ACI")
-			ElseIf !PlayerScript.bIsBusy
-				PlayerScript.bIsBusy = True
+			Else
 				bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen2 ) 
 				bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu2 )
 				If ( bTMenu || bBScreen )
@@ -84,8 +84,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 						BlackScreen.Remove()
 					EndIf
 				EndIf
-				PlayerScript.bIsBusy = False
 			EndIf
+			PlayerScript.bIsBusy = False
 		EndIf
 	EndIf
 	InvisibleObject.MoveTo(PlayerRef)
