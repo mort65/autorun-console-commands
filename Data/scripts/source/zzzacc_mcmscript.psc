@@ -117,7 +117,6 @@ Int Property RunCommandKeyJ Auto
 Int flags
 
 Event OnPageReset(String page)
-	PlayerScript.bIsBusy = False
 	SetCursorFillMode(LEFT_TO_RIGHT)
 	If Page == "$General"
 		SetCursorPosition(0)

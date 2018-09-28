@@ -11,12 +11,10 @@ Int Property iConsoleUtilVer Auto Hidden
 Float Property fCurVersion = 0.0 Auto Hidden
 Float Property fNewVersion = 0.0 Auto Hidden
 Bool Property bConsoleUtil Auto Hidden
-Bool Property bIsBusy = False Auto Hidden
 Bool bBScreen = False
 Bool bTMenu = False
 
 Event OnPlayerLoadGame()
-	bIsBusy = False
 	CheckSKSE()
 	CheckConsoleUtil()
 	CheckModVersion()
@@ -42,8 +40,8 @@ Event OnPlayerLoadGame()
 			sCurState = "Load1"
         EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !bIsBusy
-			bIsBusy = True
+		If GetState() == sCurState
+			GoToState("Busy")
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently0)
 				ConsoleUtil.ExecuteCommand("bat ACG")
 			Else
@@ -69,7 +67,7 @@ Event OnPlayerLoadGame()
 					EndIf
 				EndIf
 			EndIf
-			bIsBusy = False
+			GoToState("")
 		EndIf
 	EndIf
 EndEvent
@@ -90,8 +88,8 @@ Event OnSleepStop(Bool abInterrupted)
 			sCurState = "Sleep1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !bIsBusy
-			bIsBusy = True
+		If GetState() == sCurState
+			GoToState("Busy")
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently1)
 				ConsoleUtil.ExecuteCommand("bat ACH")
 			Else
@@ -117,8 +115,8 @@ Event OnSleepStop(Bool abInterrupted)
 					EndIf
 				EndIf
 			EndIf
-			bIsBusy = False
 		EndIf
+		GoToState("")
 	EndIf
 EndEvent
 
@@ -133,8 +131,8 @@ Event OnEnterBleedout()
 			sCurState = "Bleedout1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !bIsBusy
-			bIsBusy = True
+		If GetState() == sCurState
+			GoToState("Busy")
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently4)
 				ConsoleUtil.ExecuteCommand("bat ACK")
 			Else
@@ -160,7 +158,7 @@ Event OnEnterBleedout()
 					EndIf
 				EndIf
 			EndIf
-			bIsBusy = False
+			GoToState("")
 		EndIf
 	EndIf
 EndEvent
@@ -176,8 +174,8 @@ Event OnDying( Actor akKiller )
 			sCurState = "Dying1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !bIsBusy
-			bIsBusy = True
+		If GetState() == sCurState
+			GoToState("Busy")
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently15)
 				ConsoleUtil.ExecuteCommand("bat ACF")
 			Else
@@ -203,7 +201,7 @@ Event OnDying( Actor akKiller )
 					EndIf
 				EndIf
 			EndIf
-			bIsBusy = False
+			GoToState("")
 		EndIf
 	EndIf
 EndEvent
@@ -219,8 +217,8 @@ Event OnGetUp(ObjectReference akFurniture)
 			sCurState = "Getup1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !bIsBusy
-			bIsBusy = True
+		If GetState() == sCurState
+			GoToState("Busy")
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently11)
 				ConsoleUtil.ExecuteCommand("bat ACB")
 			Else
@@ -246,7 +244,7 @@ Event OnGetUp(ObjectReference akFurniture)
 					EndIf
 				EndIf
 			EndIf
-			bIsBusy = False
+			GoToState("")
 		EndIf
 	EndIf
 EndEvent
@@ -280,8 +278,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyA1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACM")
 					Else
@@ -307,7 +305,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyB
 				String sCurState
@@ -319,8 +317,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyB1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACN")
 					Else
@@ -346,7 +344,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyC
 				String sCurState
@@ -358,8 +356,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyC1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACO")
 					Else
@@ -385,7 +383,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyD
 				String sCurState
@@ -397,8 +395,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyD1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACP")
 					Else
@@ -424,7 +422,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyE
 				String sCurState
@@ -436,8 +434,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyE1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACA")
 					Else
@@ -463,7 +461,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyF
 				String sCurState
@@ -475,8 +473,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyF1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACQ")
 					Else
@@ -502,7 +500,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyG
 				String sCurState
@@ -514,8 +512,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyG1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACR")
 					Else
@@ -541,7 +539,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyH
 				String sCurState
@@ -553,8 +551,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyH1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACS")
 					Else
@@ -580,7 +578,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf				
 			ElseIf keyCode == MCMScript.RunCommandKeyI
 				String sCurState
@@ -592,8 +590,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyI1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACT")
 					Else
@@ -619,7 +617,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf
 			ElseIf keyCode == MCMScript.RunCommandKeyJ
 				String sCurState
@@ -631,8 +629,8 @@ Event OnKeyDown(int keyCode)
 					sCurState = "KeyJ1"
 				EndIf
 				Utility.Wait(0.1)
-				If GetState() == sCurState && !bIsBusy
-					bIsBusy = True
+				If GetState() == sCurState
+					GoToState("Busy")
 					If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently6)
 						ConsoleUtil.ExecuteCommand("bat ACU")
 					Else
@@ -658,7 +656,7 @@ Event OnKeyDown(int keyCode)
 							EndIf
 						EndIf
 					EndIf
-					bIsBusy = False
+					GoToState("")
 				EndIf				
 			EndIf
 		EndIf
@@ -676,8 +674,8 @@ Event OnRaceSwitchComplete()
 			sCurState = "RaceChange1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !bIsBusy
-			bIsBusy = True
+		If GetState() == sCurState
+			GoToState("Busy")
 			If bConsoleUtil && bGetRunSilently(MCMScript.bRunSilently14)
 				ConsoleUtil.ExecuteCommand("bat ACE")
 			Else
@@ -703,7 +701,7 @@ Event OnRaceSwitchComplete()
 					EndIf
 				EndIf
 			EndIf
-			bIsBusy = False
+			GoToState("")
 		EndIf
 	EndIf
 EndEvent
@@ -719,6 +717,7 @@ Function FirstRun()
 	EndIf
 	Utility.Wait(0.1)
 	If GetState() == sCurState
+		GoToState("Busy")
 		MCMScript.iKeyLayout = MCMScript.accKeyLayout.GetValue() As Int
 		If MCMScript.iKeyLayout < 0 || ( MCMScript.iKeyLayout > MCMScript.sKeyLayouts.Length - 1 )
 			MCMScript.iKeyLayout = 0
@@ -733,6 +732,7 @@ Function FirstRun()
 			RunBat() ;
 		EndIf
 		FirstRun.SetValue(0)
+		GoToState("")
 	EndIf
 EndFunction
 
@@ -834,3 +834,26 @@ Float Function fMin(Float a,Float b)
 	EndIf
 	Return b
 EndFunction
+
+State Busy
+	Event OnPlayerLoadGame()
+	EndEvent
+	Event OnInit()
+	EndEvent
+	Event OnUpdate()
+	EndEvent
+	Event OnSleepStop(Bool abInterrupted)
+	EndEvent
+	Event OnEnterBleedout()
+	EndEvent
+	Event OnDying( Actor akKiller )
+	EndEvent
+	Event OnGetUp(ObjectReference akFurniture)
+	EndEvent
+	Event OnKeyDown(int keyCode)
+	EndEvent
+	Event OnRaceSwitchComplete()
+	EndEvent
+	Function FirstRun()
+	EndFunction
+EndState
