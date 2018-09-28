@@ -19,8 +19,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 				sCurState = "CombatStop1"
 			EndIf
 			Utility.Wait(0.1)
-			If GetState() == sCurState && !PlayerScript.bIsBusy
-				PlayerScript.bIsBusy = True
+			If ( GetState() == sCurState ) && ( PlayerScript.GetState() != "Busy" )
+				GoToState("Busy")
+				PlayerScript.GoToState("Busy")
 				If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently13)
 					ConsoleUtil.ExecuteCommand("bat ACD")
 				Else
@@ -46,8 +47,15 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 						EndIf
 					EndIf
 				EndIf
-				PlayerScript.bIsBusy = False
+				GoToState("")
+				PlayerScript.GoToState("")
 			EndIf
 		EndIf
 	EndIf
 EndEvent
+
+State Busy
+	Event OnEffectStart(Actor akTarget, Actor akCaster)
+	EndEvent
+EndState
+

@@ -19,8 +19,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			sCurState = "Inter1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !PlayerScript.bIsBusy
-			PlayerScript.bIsBusy = True
+		If ( GetState() == sCurState ) && ( PlayerScript.GetState() != "Busy" )
+			GoToState("Busy")
+			PlayerScript.GoToState("Busy")
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently3)
 				ConsoleUtil.ExecuteCommand("bat ACJ")
 			Else
@@ -46,7 +47,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 					EndIf
 				EndIf
 			EndIf
-			PlayerScript.bIsBusy = False
+			GoToState("")
+			PlayerScript.GoToState("")
 		EndIf
 	ElseIf ( MCMScript.bOnCellExter && !PlayerRef.IsInInterior() && InvisibleObject.IsInInterior() )
 		String sCurState
@@ -58,8 +60,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			sCurState = "Exter1"
 		EndIf
 		Utility.Wait(0.1)
-		If GetState() == sCurState && !PlayerScript.bIsBusy
-			PlayerScript.bIsBusy = True
+		If ( GetState() == sCurState ) && ( PlayerScript.GetState() != "Busy" )
+			GoToState("Busy")
+			PlayerScript.GoToState("Busy")
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently2)
 				ConsoleUtil.ExecuteCommand("bat ACI")
 			Else
@@ -85,8 +88,14 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 					EndIf
 				EndIf
 			EndIf
-			PlayerScript.bIsBusy = False
+			GoToState("")
+			PlayerScript.GoToState("")
 		EndIf
 	EndIf
 	InvisibleObject.MoveTo(PlayerRef)
 EndEvent
+
+State Busy
+	Event OnEffectStart(Actor akTarget, Actor akCaster)
+	EndEvent
+EndState
