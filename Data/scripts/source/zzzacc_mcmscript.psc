@@ -1077,7 +1077,7 @@ Float Function GetModVersion()
 EndFunction
 
 Float Function GetNewVersion()
-	Return GetModVersion() + 0.03
+	Return GetModVersion() + 0.04
 EndFunction
 
 Event OnUpdate()
