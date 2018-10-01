@@ -39,7 +39,7 @@ GlobalVariable Property accVersion Auto
 GlobalVariable Property accKeyLayout Auto
 String[] Property sKeyLayouts Auto Hidden
 Int Property iKeyLayout = 0 Auto Hidden
-Float Property fConsoleDelaySlider = 1.0 Auto Hidden 
+Float Property fConsoleDelaySlider = 2.0 Auto Hidden 
 Bool Property bOnCellInter = False Auto Hidden
 Bool Property bOnCellExter = False Auto Hidden
 Bool Property bOnSleepStart = False Auto Hidden
@@ -234,7 +234,7 @@ EndEvent
 Event OnOptionSliderOpen(Int option)
 	If (option == oidConsoleDelaySlider)
 		SetSliderDialogStartValue(fConsoleDelaySlider)
-		SetSliderDialogDefaultValue(1.0)
+		SetSliderDialogDefaultValue(2.0)
 		SetSliderDialogRange(1.0, 20.0)
 		SetSliderDialogInterval(1.0)
 	EndIf
@@ -1076,7 +1076,7 @@ Float Function GetModVersion()
 EndFunction
 
 Float Function GetNewVersion()
-	Return GetModVersion() + 0.04
+	Return GetModVersion() + 0.05
 EndFunction
 
 Event OnUpdate()
