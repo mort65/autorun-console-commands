@@ -778,10 +778,12 @@ Function CheckSKSE()
 EndFunction
 
 Function CheckConsoleUtil()
-	Bool ConsoleUtil_Loaded = ConsoleUtil.GetVersion()
-	If ConsoleUtil_Loaded
+	Bool ConsoleUtil_Loaded
+	If ConsoleUtil.GetVersion()
+		ConsoleUtil_Loaded = ConsoleUtil.GetVersion()
 		iConsoleUtilVer = ConsoleUtil.GetVersion()
 	Else
+		ConsoleUtil_Loaded = False
 		iConsoleUtilVer = 0
 	EndIf
 	If ( iConsoleUtilVer && iConsoleUtilVer > 0 )
