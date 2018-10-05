@@ -5,6 +5,7 @@ Objectreference Property InvisibleObject Auto
 ImageSpaceModifier Property BlackScreen  Auto
 zzzacc_MCMScript Property MCMScript Auto
 zzzacc_PlayerScript Property PlayerScript Auto
+zzzacc_UtilScript Property UtilScript Auto
 Bool bBScreen = False
 Bool bTMenu = False
 
@@ -23,8 +24,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			GoToState("Busy")
 			PlayerScript.GoToState("Busy")
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently3)
-				ConsoleUtil.ExecuteCommand("bat ACJ")
-			Else
+				ConsoleUtil.ExecuteCommand(MCMScript.sInputCellInter)
+			ElseIf !UtilScript.bIsArrEmpty(MCMScript.iCellInterCodes,1)
 				bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen3 ) 
 				bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu3 )
 				If ( bTMenu || bBScreen )
@@ -36,7 +37,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 					EndIf
 					Utility.Wait(0.1)
 				EndIf
-				PlayerScript.RunBat(36) ;J
+				UtilScript.RunCommand(MCMScript.iCellInterCodes )
 				If ( bTMenu || bBScreen )
 					Utility.Wait(0.1)
 					If bTMenu
@@ -64,8 +65,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 			GoToState("Busy")
 			PlayerScript.GoToState("Busy")
 			If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently2)
-				ConsoleUtil.ExecuteCommand("bat ACI")
-			Else
+				ConsoleUtil.ExecuteCommand(MCMScript.sInputCellExter)
+			ElseIf !UtilScript.bIsArrEmpty(MCMScript.iCellExterCodes,1)
 				bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen2 ) 
 				bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu2 )
 				If ( bTMenu || bBScreen )
@@ -77,7 +78,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 					EndIf
 					Utility.Wait(0.1)
 				EndIf
-				PlayerScript.RunBat(23) ;I
+				UtilScript.RunCommand(MCMScript.iCellExterCodes) ;I
 				If ( bTMenu || bBScreen )
 					Utility.Wait(0.1)
 					If bTMenu

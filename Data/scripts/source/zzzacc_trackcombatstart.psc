@@ -4,6 +4,7 @@ Actor Property PlayerRef Auto
 ImageSpaceModifier Property BlackScreen  Auto
 zzzacc_MCMScript Property MCMScript Auto
 zzzacc_PlayerScript Property PlayerScript Auto
+zzzacc_UtilScript Property UtilScript Auto
 Bool bTMenu = False
 Bool bBScreen = False
 
@@ -23,8 +24,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 				GoToState("Busy")
 				PlayerScript.GoToState("Busy")
 				If PlayerScript.bConsoleUtil && PlayerScript.bGetRunSilently(MCMScript.bRunSilently12)
-					ConsoleUtil.ExecuteCommand("bat ACC")
-				Else
+					ConsoleUtil.ExecuteCommand(MCMScript.sInputCombatStart)
+				ElseIf !UtilScript.bIsArrEmpty(MCMScript.iCombatStartCodes,1)
 					bBScreen = PlayerScript.bGetBScreen( MCMScript.bBlackScreen12 ) 
 					bTMenu = PlayerScript.bGetTMenu( MCMScript.bToggleMenu12 )
 					If ( bTMenu || bBScreen )
@@ -36,7 +37,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 						EndIf
 						Utility.Wait(0.1)
 					EndIf
-					PlayerScript.RunBat(46) ;C
+					UtilScript.RunCommand(MCMScript.iCombatStartCodes)
 					If ( bTMenu || bBScreen )
 						Utility.Wait(0.1)
 						If bTMenu
