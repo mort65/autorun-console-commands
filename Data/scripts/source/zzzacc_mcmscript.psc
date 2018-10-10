@@ -3314,51 +3314,71 @@ Bool function bLoadUserSettings(String sFileName)
 	RunCommandKeyA = fiss.loadInt("RunCommandKeyA")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyA) || !(UtilScript.GetStandardControl(RunCommandKeyA) || GetCustomControl(RunCommandKeyA))
 		RunCommandKeyA = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyA)
 	EndIf
 	tmpInt = RunCommandKeyB
 	RunCommandKeyB = fiss.loadInt("RunCommandKeyB")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyB) || !(UtilScript.GetStandardControl(RunCommandKeyB) || GetCustomControl(RunCommandKeyB))
 		RunCommandKeyB = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyB)
 	EndIf
 	tmpInt = RunCommandKeyC
 	RunCommandKeyC = fiss.loadInt("RunCommandKeyC")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyC) || !(UtilScript.GetStandardControl(RunCommandKeyC) || GetCustomControl(RunCommandKeyC))
 		RunCommandKeyC = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyC)
 	EndIf
 	tmpInt = RunCommandKeyD
 	RunCommandKeyD = fiss.loadInt("RunCommandKeyD")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyD) || !(UtilScript.GetStandardControl(RunCommandKeyD) || GetCustomControl(RunCommandKeyD))
 		RunCommandKeyD = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyD)
 	EndIf
 	tmpInt = RunCommandKeyE
 	RunCommandKeyE = fiss.loadInt("RunCommandKeyE")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyE) || !(UtilScript.GetStandardControl(RunCommandKeyE) || GetCustomControl(RunCommandKeyE))
 		RunCommandKeyE = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyE)
 	EndIf
 	tmpInt = RunCommandKeyF
 	RunCommandKeyF = fiss.loadInt("RunCommandKeyF")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyF) || !(UtilScript.GetStandardControl(RunCommandKeyF) || GetCustomControl(RunCommandKeyF))
 		RunCommandKeyF = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyF)
 	EndIf
 	tmpInt = RunCommandKeyG
 	RunCommandKeyG = fiss.loadInt("RunCommandKeyG")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyG) || !(UtilScript.GetStandardControl(RunCommandKeyG) || GetCustomControl(RunCommandKeyG))
 		RunCommandKeyG = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyG)
 	EndIf
 	tmpInt = RunCommandKeyH
 	RunCommandKeyH = fiss.loadInt("RunCommandKeyH")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyH) || !(UtilScript.GetStandardControl(RunCommandKeyH) || GetCustomControl(RunCommandKeyH))
 		RunCommandKeyH = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyH)
 	EndIf
 	tmpInt = RunCommandKeyI
 	RunCommandKeyI = fiss.loadInt("RunCommandKeyI")
 	If !UtilScript.bIsKeyboardKey(RunCommandKeyI) || !(UtilScript.GetStandardControl(RunCommandKeyI) || GetCustomControl(RunCommandKeyI))
 		RunCommandKeyI = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyI)
 	EndIf
 	tmpInt = RunCommandKeyJ
 	RunCommandKeyJ = fiss.loadInt("RunCommandKeyJ")
 	if !UtilScript.bIsKeyboardKey(RunCommandKeyJ) || !(UtilScript.GetStandardControl(RunCommandKeyJ) || GetCustomControl(RunCommandKeyJ))
 		RunCommandKeyJ = tmpInt
+	Else
+		RegisterForKey(RunCommandKeyJ)
 	EndIf
 	If PlayerQuest.IsRunning()
 		PlayerScript.mapKey()
