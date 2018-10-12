@@ -11,10 +11,24 @@ String Property puncs Auto Hidden
 String Property keys Auto Hidden
 String[] Property ControlName Auto Hidden
 Int[] Property ControlKeyCode Auto Hidden
+Bool Property bInit = False Auto Hidden
 Int maxKCode = 1000
 Int minKCode = 0
 
 Event OnInit()
+	If bInit
+		Return
+	EndIf
+	bInit = True
+	Init()
+	RegisterForSingleUpdate(1.0)
+EndEvent
+
+Event OnUpdate()
+	bInit = False
+EndEvent
+
+Function Init()
 	letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	digits = "1234567890"
 	puncs = ".-; "
@@ -60,9 +74,9 @@ Event OnInit()
 	keyCodes[37] = 74 ;NUM-
 	keyCodes[38] = 39 ;;
 	keyCodes[39] = 57 ;Spacebar
-	RecordControlNames()
 	ControlKeyCode = New Int[43]
-EndEvent
+	RecordControlNames()
+EndFunction
 
 Function SetKeyCodes(Int Layout)
 	_KeyCodes = New Int[101]
@@ -159,7 +173,11 @@ Int Function IsInputInvalid(String s)
 EndFunction
 
 Int Function getKeyCode(String c)
-	Return _KeyCodes[keyCodes[find(keys,c)] - 1]
+	Int i = find(keys,c)
+	If i > -1
+		Return _KeyCodes[keyCodes[i] - 1]
+	EndIf
+	Return 0
 EndFunction
 
 Int[] Function getKeyCodes(String s)
@@ -208,7 +226,7 @@ String Function trimInput(String s)
 			i += 1
 		EndWhile
 	EndIf
-	Return Substring(s,i,j)
+	Return Substring(s, i, j - i)
 EndFunction
 
 Function RunCommand(Int[] kCodes)
