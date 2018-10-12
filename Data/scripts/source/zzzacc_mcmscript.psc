@@ -2682,7 +2682,7 @@ Event OnConfigInit()
 EndEvent
 
 Event OnConfigRegister()
-	RegisterForSingleUpdate(3.0)
+	RegisterForSingleUpdate(1.0)
 EndEvent
 
 
@@ -2729,6 +2729,7 @@ Function SetPresets()
 EndFunction
 
 Function Update(Float fCurVersion, Float fNewVersion)
+	UtilScript.OnInit()
 	SetArrays()
 	If (fNewVersion >= 1.40 && fCurVersion < 1.40)
 		Debug.Trace(self + ": Updating script to version " + 1.40)
@@ -2736,8 +2737,14 @@ Function Update(Float fCurVersion, Float fNewVersion)
 	If (fNewVersion >= 1.50 && fCurVersion < 1.50)
 		Debug.Trace(self + ": Updating script to version " + 1.50)
 		UtilScript.SetKeyCodes(iKeyLayout)
+		If !sInputKeyA
+			sInputKeyA = "BAT ACM"
+		EndIf
 		If !iKeyACodes
 			iKeyACodes = UtilScript.getKeyCodes(sInputKeyA)
+		EndIf
+		If !sInputKeyB
+			sInputKeyB = "BAT ACN"
 		EndIf
 		If !iKeyBCodes
 			iKeyBCodes = UtilScript.getKeyCodes(sInputKeyB)
@@ -2745,11 +2752,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu7 = bToggleMenu6
 			bRunSilently7 = bRunSilently6
 		EndIf
+		If !sInputKeyC
+			sInputKeyC = "BAT ACO"
+		EndIf
 		If !iKeyCCodes
 			iKeyCCodes = UtilScript.getKeyCodes(sInputKeyC)
 			bBlackScreen8 = bBlackScreen6
 			bToggleMenu8 = bToggleMenu6
 			bRunSilently8 = bRunSilently6
+		EndIf
+		If !sInputKeyD
+			sInputKeyD = "BAT ACP"
 		EndIf
 		If !iKeyDCodes
 			iKeyDCodes = UtilScript.getKeyCodes(sInputKeyD)
@@ -2757,11 +2770,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu9= bToggleMenu6
 			bRunSilently9 = bRunSilently6
 		EndIf
+		If !sInputKeyE
+			sInputKeyE = "BAT ACA"
+		EndIf
 		If !iKeyECodes
 			iKeyECodes = UtilScript.getKeyCodes(sInputKeyE)
 			bBlackScreen10 = bBlackScreen6
 			bToggleMenu10 = bToggleMenu6
 			bRunSilently10 = bRunSilently6
+		EndIf
+		If !sInputKeyF
+			sInputKeyF = "BAT ACQ"
 		EndIf
 		If !iKeyFCodes
 			iKeyFCodes = UtilScript.getKeyCodes(sInputKeyF)
@@ -2769,11 +2788,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu16 = bToggleMenu6
 			bRunSilently16 = bRunSilently6
 		EndIf
+		If !sInputKeyG
+			sInputKeyG = "BAT ACR"
+		EndIf
 		If !iKeyGCodes
 			iKeyGCodes = UtilScript.getKeyCodes(sInputKeyG)
 			bBlackScreen17 = bBlackScreen6
 			bToggleMenu17 = bToggleMenu6
 			bRunSilently17 = bRunSilently6
+		EndIf
+		If !sInputKeyH
+			sInputKeyH = "BAT ACS"
 		EndIf
 		If !iKeyHCodes
 			iKeyHCodes = UtilScript.getKeyCodes(sInputKeyH)
@@ -2781,11 +2806,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu18 = bToggleMenu6
 			bRunSilently18 = bRunSilently6
 		EndIf
+		If !sInputKeyI
+			sInputKeyI = "BAT ACT"
+		EndIf
 		If !iKeyICodes
 			iKeyICodes = UtilScript.getKeyCodes(sInputKeyI)
 			bBlackScreen19 = bBlackScreen6
 			bToggleMenu19 = bToggleMenu6
 			bRunSilently19 = bRunSilently6
+		EndIf
+		If !sInputKeyJ
+			sInputKeyJ = "BAT ACU"
 		EndIf
 		If !iKeyJCodes
 			iKeyJCodes = UtilScript.getKeyCodes(sInputKeyJ)
@@ -2793,11 +2824,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu20 = bToggleMenu6
 			bRunSilently20 = bRunSilently6
 		EndIf
+		If !sInputLoadGame 
+			sInputLoadGame  = "BAT ACG"
+		EndIf
 		If !iLoadGameCodes 
 			iLoadGameCodes  = UtilScript.getKeyCodes(sInputLoadGame)
 			bBlackScreen0 = bBlackScreen6
 			bToggleMenu0 = bToggleMenu6
 			bRunSilently0 = bRunSilently6
+		EndIf
+		If !sInputCellInter 
+			sInputCellInter  = "BAT ACJ"
 		EndIf
 		If !iCellInterCodes
 			iCellInterCodes = UtilScript.getKeyCodes(sInputCellInter)
@@ -2805,11 +2842,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu3 = bToggleMenu6
 			bRunSilently3 = bRunSilently6
 		EndIf
+		If !sInputCellExter
+			sInputCellExter  = "BAT ACI"
+		EndIf
 		If !iCellExterCodes
 			iCellExterCodes = UtilScript.getKeyCodes(sInputCellExter)
 			bBlackScreen2 = bBlackScreen6
 			bToggleMenu2 = bToggleMenu6
 			bRunSilently2 = bRunSilently6
+		EndIf
+		If !sInputCombatStart
+			sInputCombatStart  = "BAT ACC"
 		EndIf
 		If !iCombatStartCodes
 			iCombatStartCodes = UtilScript.getKeyCodes(sInputCombatStart)
@@ -2817,11 +2860,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu12 = bToggleMenu6
 			bRunSilently12 = bRunSilently6
 		EndIf
+		If !sInputCombatStop
+			sInputCombatStop  = "BAT ACD"
+		EndIf
 		If !iCombatStopCodes
 			iCombatStopCodes = UtilScript.getKeyCodes(sInputCombatStop)
 			bBlackScreen13 = bBlackScreen6
 			bToggleMenu13 = bToggleMenu6
 			bRunSilently13 = bRunSilently6
+		EndIf
+		If !sInputSit
+			sInputSit  = "BAT ACL"
 		EndIf
 		If !iSitCodes
 			iSitCodes = UtilScript.getKeyCodes(sInputSit)
@@ -2829,11 +2878,17 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu5 = bToggleMenu6
 			bRunSilently5 = bRunSilently6
 		EndIf
+		If !sInputStanding
+			sInputStanding  = "BAT ACB"
+		EndIf
 		If !iStandingCodes
 			iStandingCodes = UtilScript.getKeyCodes(sInputStanding)
 			bBlackScreen11 = bBlackScreen6
 			bToggleMenu11 = bToggleMenu6
 			bRunSilently11 = bRunSilently6
+		EndIf
+		If !sInputRaceSwitch
+			sInputRaceSwitch  = "BAT ACE"
 		EndIf
 		If !iRaceSwitchCodes
 			iRaceSwitchCodes = UtilScript.getKeyCodes(sInputRaceSwitch)
@@ -2841,17 +2896,26 @@ Function Update(Float fCurVersion, Float fNewVersion)
 			bToggleMenu14 = bToggleMenu6
 			bRunSilently14 = bRunSilently6
 		EndIf
+		If !sInputSleepStart
+			sInputSleepStart  = "BAT ACH"
+		EndIf
 		If !iSleepStartCodes
 			iSleepStartCodes = UtilScript.getKeyCodes(sInputSleepStart)
 			bBlackScreen1 = bBlackScreen6
 			bToggleMenu1 = bToggleMenu6
 			bRunSilently1 = bRunSilently6
 		EndIf
+		If !sInputBleedout
+			sInputBleedout  = "BAT ACK"
+		EndIf
 		If !iBleedouCodes
 			iBleedouCodes = UtilScript.getKeyCodes(sInputBleedout)
 			bBlackScreen4 = bBlackScreen6
 			bToggleMenu4 = bToggleMenu6
 			bRunSilently4 = bRunSilently6
+		EndIf
+		If !sInputDying
+			sInputDying  = "BAT ACF"
 		EndIf
 		If !iDyingCodes
 			iDyingCodes = UtilScript.getKeyCodes(sInputDying)
