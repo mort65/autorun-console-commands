@@ -234,7 +234,7 @@ Function RunCommand(Int[] kCodes)
 	Int k
 	If l > 0
 		Int i = 0
-		float delay = MCMScript.fConsoleDelaySlider / 40
+		Float delay = MCMScript.fConsoleDelaySlider / 40
 		Input.TapKey(_KeyCodes[40]) ;~
 		Utility.WaitMenuMode(delay * 2)
 		Input.TapKey(_KeyCodes[13]) ;backspace
