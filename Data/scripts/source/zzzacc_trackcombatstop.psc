@@ -9,7 +9,7 @@ Bool bBScreen = False
 Bool bTMenu = False
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-	If ( MCMScript.bOnCombatStart )
+	If ( MCMScript.bOnCombatStop )
 		If ( !PlayerRef.IsInCombat() && !PlayerRef.IsDead() && !PlayerRef.IsBleedingout() )
 			String sCurState
 			If GetState() == "CombatStop1"

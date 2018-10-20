@@ -13,6 +13,7 @@ Int Property iConsoleUtilVer Auto Hidden
 Float Property fCurVersion = 0.0 Auto Hidden
 Float Property fNewVersion = 0.0 Auto Hidden
 Bool Property bConsoleUtil Auto Hidden
+Int[] Property iKeyCodes Auto Hidden
 Bool bBScreen = False
 Bool bTMenu = False
 
@@ -76,6 +77,7 @@ Event OnPlayerLoadGame()
 		EndIf
 	EndIf
 	GoToState("")
+	RegisterForModEvent("ARCC_RunCommand", "RunModCommand")
 EndEvent
 
 Event OnInit()
@@ -275,7 +277,6 @@ Event OnKeyDown(int keyCode)
 	If MCMScript.bOnKeyPress
 		If !Utility.IsInMenuMode()
 			If ( keyCode == MCMScript.RunCommandKeyA ) && MCMScript.sInputKeyA
-				Debug.Trace(MCMScript.sInputKeyA)
 				String sCurState
 				If GetState() == "KeyA1"
 					GoToState("KeyA2")
@@ -804,6 +805,68 @@ Event OnUpdate()
 	EndIf
 EndEvent
 
+Event RunModCommand(Form sender, String strModName, String strCommand, Int aiSilent = -1, Int aiFadeOut = -1, Int aiHideMenu = -1)
+	If strCommand && strModName
+		String sCurState
+		If GetState() == "RunCommand1"
+			GoToState("RunCommand2")
+			sCurState = "RunCommand2"
+		Else
+			GoToState("RunCommand1")
+			sCurState = "RunCommand1"
+		EndIf
+		Utility.Wait(0.1)
+		If GetState() == sCurState
+			GoToState("Busy")
+			Bool abSilent
+			If aiSilent > -1
+				abSilent = aiSilent As Bool
+			Else
+				abSilent = MCMScript.bRunSilently
+			EndIf
+			If bConsoleUtil && abSilent
+				Debug.Trace("ARCC: Executing '" + strCommand +"' from [ " + sender + " : " + strModName + " ]")
+				ConsoleUtil.ExecuteCommand(strCommand)
+			Else
+				iKeyCodes = UtilScript.getKeyCodes(strCommand)
+				If !UtilScript.bIsArrEmpty(iKeyCodes,1)
+					Debug.Trace("ARCC: Executing '" + strCommand +"' from [ " + sender + " : " + strModName + " ]")
+					If aiFadeOut > -1
+						bBScreen = aiFadeOut As Bool
+					Else
+						bBScreen = MCMScript.bBlackScreen
+					EndIf
+					If aiHideMenu > -1
+						bTMenu = aiHideMenu As Bool
+					Else
+						bTMenu = MCMScript.bToggleMenu
+					EndIf
+					If ( bBScreen || bTMenu )
+						If bBScreen
+							BlackScreen.Apply()
+						EndIf
+						If bTMenu
+							Debug.ToggleMenus()
+						EndIf
+						Utility.Wait(0.1)
+					EndIf
+					UtilScript.RunCommand(iKeyCodes)
+					If ( bBScreen || bTMenu )
+						Utility.Wait(0.1)
+						If bTMenu
+							Debug.ToggleMenus()
+						EndIf
+						If bBScreen
+							BlackScreen.Remove()
+						EndIf
+					EndIf
+				EndIf
+			EndIf
+			GoToState("")
+		EndIf
+	EndIf
+EndEvent
+
 State Busy
 	Event OnPlayerLoadGame()
 	EndEvent
@@ -822,6 +885,8 @@ State Busy
 	Event OnKeyDown(int keyCode)
 	EndEvent
 	Event OnRaceSwitchComplete()
+	EndEvent
+	Event RunModCommand(Form sender, String strModName, String strCommand, Int aiSilent = -1, Int aiFadeOut = -1, Int aiHideMenu = -1)
 	EndEvent
 	Function FirstRun()
 	EndFunction
