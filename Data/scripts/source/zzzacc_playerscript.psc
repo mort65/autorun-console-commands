@@ -870,6 +870,7 @@ EndEvent
 
 State Busy
 	Event OnPlayerLoadGame()
+		RegisterForModEvent("ARCC_RunCommand", "RunModCommand")
 	EndEvent
 	Event OnInit()
 	EndEvent
