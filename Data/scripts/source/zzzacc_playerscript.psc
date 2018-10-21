@@ -83,6 +83,7 @@ EndEvent
 Event OnInit()
 	CheckSKSE()
 	CheckConsoleUtil()
+	RegisterForModEvent("ARCC_RunCommand", "RunModCommand")
 EndEvent
 
 Event OnSleepStop(Bool abInterrupted)
