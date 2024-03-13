@@ -1,7 +1,45 @@
-# autorun-console-commands
 
-This mod allows you to autorun console commands either by hitting hotkeys, or automatically after events like sitting, getting up, sleeping, dying, etc.
-After installing this mod you will have 17 text files. Each file has a comment that tells you when it will be executed.You don't need to delete this comment.
-You can execute multiple commands from each text file by writing each one of them in a separated line.
-After writing your commands you need to enable the respective option from the mcm menu.
-If you install ConsoleUtil, commands would execute silently and won't be interrupted if you hit a keyboard key while they are being executed.
+# Autorun Console Commands
+
+*Automatically run your commands.*
+
+<br>
+
+## Features
+
+-   Runs commands after hitting a hotkey
+
+-   Runs commands after events such as:
+
+    - `getting up`
+    - `sleeping`
+    - `sitting`
+    - `dying`
+    - ...
+    
+<br>
+<br>
+
+## Usage
+
+After you installed this addon, you will have `17` text files containing <br>
+comments that describe when the commands inside will executed.
+
+Write each command on a separate line after the first comment.
+
+<br>
+
+### Enabling
+
+After you wrote your commands, you will need to <br>
+enable the respective option in the **MCM** menu.
+
+<br>
+
+### ConsoleUtil
+
+If you install this **ConsoleUtil**, command will be <br>
+executed silently and won't be interrupted if you <br>
+press a key while they run.
+
+<br>
